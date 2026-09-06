@@ -6,15 +6,12 @@ Personal portfolio site. Next.js App Router + TypeScript + Tailwind CSS v4, depl
 
 - **Next.js 16** (App Router, Turbopack) + React 19 + TypeScript
 - **Tailwind CSS v4** — CSS-first tokens in `app/globals.css` (no `tailwind.config.js`); class-based dark mode via `next-themes`
-- **react-hook-form** + **Zod** for the contact form's client UX and server-side validation
-- **Resend** for contact-form email delivery via a Server Action (`lib/actions.ts`) — no separate backend
 - **lucide-react** for icons; `@vercel/analytics` + `@vercel/speed-insights` wired into the root layout
 
 ## Getting started
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in the Resend values below
 npm run dev
 ```
 
@@ -22,15 +19,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 `npm run build` runs a full type-check + lint + static-page generation pass — the fastest signal something is broken.
 
-## Environment variables
-
-See `.env.example`. All three are required for the contact form to actually send mail (it fails gracefully with a generic error message if any are missing, and logs the specifics server-side):
-
-| Variable | Purpose |
-|---|---|
-| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) |
-| `CONTACT_TO_EMAIL` | Inbox that receives contact-form submissions |
-| `CONTACT_FROM_EMAIL` | Verified sender address (Resend's shared `onboarding@resend.dev` works with zero setup) |
+No environment variables are required — the contact section is a plain `mailto:` link (`components/sections/Contact.tsx`), not a form with a backend.
 
 ## Content model
 
@@ -48,7 +37,7 @@ Changing either constraint means editing `content/projects.ts`, not hunting thro
 Nothing below is a bug — each is a real gap the UI already handles honestly (placeholder badge, disabled affordance with a tooltip, or an absent link) until the asset exists. Tracked here so nothing ships as silently "finished" when it isn't:
 
 - [ ] **Résumé PDF** — only a `.docx` exists today. `site.resume` stays `status: 'placeholder'` until a PDF is in hand; the Hero's résumé button is disabled with a tooltip until then.
-- [ ] **Headshot photo** — `components/sections/About.tsx` renders an honest placeholder; decision on whether to use one at all is still open.
+- [x] **Headshot photo** — real photo in place (`public/images/saumyae-headshot.jpg`).
 - [ ] **E-Commerce Microservices** — needs a real GitHub link (and demo link, if one exists).
 - [ ] **Real-Time Object Detection (YOLOv8)** — needs a real GitHub link (and a demo GIF/clip, if one exists).
 - [ ] **Offline RAG Chatbot demo assets** — needs sanitized/synthetic screenshots or a recording. **Sponsor-provided data/documents are permanently excluded — do not source demo assets from the actual SCDM Hackathon submission.**

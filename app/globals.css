@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
+/* Tailwind v4 has no `darkMode` config option — this redefines the `dark:`
+   variant to react to a `.dark` class on an ancestor (added/removed by
+   next-themes) instead of `prefers-color-scheme`. `:where()` keeps the
+   added specificity at 0 so it never fights component-level overrides. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f1115;
+  --muted: #f4f5f7;
+  --muted-foreground: #5b6270;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --ring: #4f46e5;
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
 }
 
+.dark {
+  --background: #0a0a0c;
+  --foreground: #edeef1;
+  --muted: #16171b;
+  --muted-foreground: #9a9fa8;
+  --card: #111214;
+  --border: #26282d;
+  --ring: #818cf8;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+}
+
+/* `inline` makes generated utilities (bg-background, text-foreground, ...)
+   emit `var(--background)` rather than baking in the :root value at build
+   time — that's what lets them respond live when .dark toggles. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

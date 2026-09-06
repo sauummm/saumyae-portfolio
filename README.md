@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Saumyae Joshi — Portfolio
 
-## Getting Started
+Personal portfolio site. Next.js App Router + TypeScript + Tailwind CSS v4, deployed on Vercel.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + React 19 + TypeScript
+- **Tailwind CSS v4** — CSS-first tokens in `app/globals.css` (no `tailwind.config.js`); class-based dark mode via `next-themes`
+- **react-hook-form** + **Zod** for the contact form's client UX and server-side validation
+- **Resend** for contact-form email delivery via a Server Action (`lib/actions.ts`) — no separate backend
+- **lucide-react** for icons; `@vercel/analytics` + `@vercel/speed-insights` wired into the root layout
+
+## Getting started
 
 ```bash
+npm install
+cp .env.example .env.local   # fill in the Resend values below
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`npm run build` runs a full type-check + lint + static-page generation pass — the fastest signal something is broken.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+See `.env.example`. All three are required for the contact form to actually send mail (it fails gracefully with a generic error message if any are missing, and logs the specifics server-side):
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Purpose |
+|---|---|
+| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) |
+| `CONTACT_TO_EMAIL` | Inbox that receives contact-form submissions |
+| `CONTACT_FROM_EMAIL` | Verified sender address (Resend's shared `onboarding@resend.dev` works with zero setup) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content model
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Site content lives in typed data files under `content/*.ts`, validated against the interfaces in `types/index.ts` — not MDX. The data is structured and uniform enough (projects, experience, skills, education) that plain objects are simpler than a content-rendering pipeline; revisit this if case-study prose grows substantially.
 
-## Deploy on Vercel
+Two union types encode disclosure rules **in the type system**, so they show up in the UI rather than depending on a comment or memory:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `ContentStatus` (`'ready' | 'placeholder'`) — drives honest empty states. Missing `Asset.src` always renders a labeled placeholder, never a broken `<img>` or a silently blank gap. Missing `links.github`/`links.demo` renders as absent, never a dead `href="#"`.
+- `ConfidentialLevel` (`'public' | 'sanitized' | 'confidential'`) — a project's `disclosureNote` renders as a visible banner on its case-study page whenever this isn't `'public'`. For the offline RAG chatbot (`sanitized`), that banner states plainly that sponsor-provided data/documents are never shown — architecture, role, and tech choices are freely discussable, the underlying documents are not. For the EPAM campus tool (`confidential`), it stays generic (role/stack/architecture only) with no real screenshots, ever.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Changing either constraint means editing `content/projects.ts`, not hunting through component code.
+
+## Deferred-asset tracker
+
+Nothing below is a bug — each is a real gap the UI already handles honestly (placeholder badge, disabled affordance with a tooltip, or an absent link) until the asset exists. Tracked here so nothing ships as silently "finished" when it isn't:
+
+- [ ] **Résumé PDF** — only a `.docx` exists today. `site.resume` stays `status: 'placeholder'` until a PDF is in hand; the Hero's résumé button is disabled with a tooltip until then.
+- [ ] **Headshot photo** — `components/sections/About.tsx` renders an honest placeholder; decision on whether to use one at all is still open.
+- [ ] **E-Commerce Microservices** — needs a real GitHub link (and demo link, if one exists).
+- [ ] **Real-Time Object Detection (YOLOv8)** — needs a real GitHub link (and a demo GIF/clip, if one exists).
+- [ ] **Offline RAG Chatbot demo assets** — needs sanitized/synthetic screenshots or a recording. **Sponsor-provided data/documents are permanently excluded — do not source demo assets from the actual SCDM Hackathon submission.**
+- [ ] **Custom domain** — currently ships to `*.vercel.app`. `site.url` in `content/site.ts` must be updated the moment a real URL is final (it feeds `metadataBase`, OG tags, and canonical links — wrong until it matches reality).
+
+## Deploy
+
+Builds and deploys on Vercel. `app/robots.ts` / `app/sitemap.ts` / `app/icon.tsx` / `app/opengraph-image.tsx` all read from `content/site.ts`'s `url` field — see the custom-domain item above.

@@ -4,20 +4,33 @@ import { PlaceholderImage } from '@/components/ui/PlaceholderImage';
 import { site } from '@/content/site';
 import type { Asset } from '@/types';
 
-// Not sourced from content/site.ts — the headshot decision is still open
-// (see plan's deferred-asset tracker), so this stays an honest placeholder
-// slot rather than an invented image or a silently missing one.
+// Not sourced from content/site.ts — this is the one photo on the site,
+// scoped separately from the "no photos" rule that governs project cards
+// and case studies (see content/projects.ts) since a personal headshot in
+// an About section isn't a project screenshot.
 const headshot: Asset = {
+  src: '/images/saumyae-headshot.jpg',
   alt: `Photo of ${site.name}`,
-  status: 'placeholder',
-  note: 'Photo coming soon',
+  status: 'ready',
 };
 
 export function About() {
   return (
-    <Section id="about" eyebrow="About" title="A bit about me">
+    // Heading is rendered inside the grid below (not passed as Section's
+    // own eyebrow/title) so the photo column starts flush with it, instead
+    // of only alongside the paragraphs — Section would otherwise place the
+    // heading full-width above the whole grid, starting the photo a row too low.
+    <Section id="about">
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-[minmax(0,1fr)_240px] sm:items-start">
         <div className="flex flex-col gap-4 text-muted-foreground">
+          <div className="max-w-2xl">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">
+              About
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              A bit about me
+            </h2>
+          </div>
           <p className="leading-relaxed">
             I&apos;m a full-stack engineer who likes owning the whole surface of a product —
             an ASP.NET Core API and its data model, an Angular or React frontend on top, and
@@ -38,7 +51,16 @@ export function About() {
           </p>
         </div>
 
-        <PlaceholderImage asset={headshot} className="aspect-square w-full sm:w-60" />
+        {/* aspect-[4/5] matches the source photo's own crop (976x1220) —
+            keeping the container's ratio equal to the image's means
+            object-cover does zero additional cropping on top of it. A
+            mismatched ratio here (e.g. aspect-square) is what was slicing
+            into the top of the head before. */}
+        <PlaceholderImage
+          asset={headshot}
+          className="aspect-[4/5] w-full sm:w-60"
+          sizes="(min-width: 640px) 240px, 100vw"
+        />
       </div>
     </Section>
   );

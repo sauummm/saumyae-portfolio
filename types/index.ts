@@ -54,7 +54,6 @@ export interface Project {
   featured: boolean;
   timeframe: string;
   links?: ProjectLinks;
-  thumbnail: Asset;
   /** Visible only when confidential !== 'public'; states the restriction plainly. */
   disclosureNote?: string;
   overview: string;
@@ -62,7 +61,6 @@ export interface Project {
   approach: string;
   architectureSteps: string[];
   results: string;
-  gallery: Asset[];
 }
 
 export interface ExperienceEntry {

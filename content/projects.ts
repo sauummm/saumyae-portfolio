@@ -5,13 +5,14 @@ import type { Project } from '@/types';
  * ContentStatus / ConfidentialLevel mechanics):
  *
  * - offline-rag-chatbot   → status: ready,       confidential: sanitized
- * - campus-internal-tool  → status: placeholder, confidential: confidential  (generic only, forever)
+ * - campus-internal-tool  → status: ready,       confidential: confidential  (generic only, forever)
  * - ecommerce-microservices → status: ready,     confidential: public       (links pending from user)
  * - realtime-object-detection → status: ready,   confidential: public       (links pending from user)
  *
- * "ready" here describes the case-study *text* — gallery Assets are their
- * own placeholders independent of it, and for campus-internal-tool no
- * gallery will ever be populated (see its disclosureNote).
+ * "ready" here describes the case-study *text* only — none of the four
+ * projects carries image assets (thumbnail/gallery were removed; no photos
+ * anywhere on the site, per instruction). Disclosure for campus-internal-tool
+ * rests entirely on its disclosureNote below — no screenshots, ever.
  */
 export const projects: Project[] = [
   {
@@ -27,11 +28,6 @@ export const projects: Project[] = [
     confidential: 'sanitized',
     featured: true,
     timeframe: '2026 · in progress (SCDM Hackathon 2026)',
-    thumbnail: {
-      alt: 'Offline RAG Chatbot interface (sanitized demo pending)',
-      status: 'placeholder',
-      note: 'Screenshot pending — will use sanitized/dummy documents, never sponsor data.',
-    },
     disclosureNote:
       'Built for the SCDM Hackathon 2026, hosted by the Society for Clinical Data Management (SCDM). Architecture, role, and tech choices are freely discussable — but sponsor-provided documents and data are confidential and will never appear in a screenshot, recording, or shared code. Any demo assets shown here use synthetic/sanitized documents only.',
     overview:
@@ -49,18 +45,6 @@ export const projects: Project[] = [
     ],
     results:
       'Full outcomes are still being finalized as the hackathon’s judging is ongoing. The core value proposition is already proven, though: a fully offline architecture means the chatbot can run entirely inside a sponsor’s own environment with zero data egress — non-negotiable for a clinical-data-management audience.',
-    gallery: [
-      {
-        alt: 'RAG pipeline architecture diagram',
-        status: 'placeholder',
-        note: 'Diagram to be added.',
-      },
-      {
-        alt: 'Chatbot conversation view (sanitized demo)',
-        status: 'placeholder',
-        note: 'Pending sanitized/dummy demo documents — sponsor data will never be shown here.',
-      },
-    ],
   },
   {
     slug: 'ecommerce-microservices',
@@ -74,11 +58,6 @@ export const projects: Project[] = [
     confidential: 'public',
     featured: true,
     timeframe: 'Apr 2025 – Present',
-    thumbnail: {
-      alt: 'E-Commerce Platform screenshot',
-      status: 'placeholder',
-      note: 'Screenshot coming soon.',
-    },
     overview:
       'A microservice-ready e-commerce platform built end to end — a RESTful Spring Boot backend, a responsive React storefront, and a MySQL data layer — structured so individual services can scale or be extracted independently as the system grows.',
     problem:
@@ -92,36 +71,20 @@ export const projects: Project[] = [
     ],
     results:
       'Achieved roughly 30% faster query response times through schema and indexing optimization, with complete registration-to-purchase user flows on the frontend.',
-    gallery: [
-      {
-        alt: 'E-Commerce Platform — product catalog',
-        status: 'placeholder',
-        note: 'Screenshot coming soon.',
-      },
-      {
-        alt: 'E-Commerce Platform — checkout flow',
-        status: 'placeholder',
-        note: 'Screenshot coming soon.',
-      },
-    ],
   },
   {
     slug: 'campus-internal-tool',
     title: 'Campus Internal Tool (EPM-ICMP-CIT)',
-    tagline: 'An internal EPAM platform for campus recruitment workflows and resource tracking.',
+    tagline:
+      'An internal EPAM platform for campus recruitment workflows and resource tracking — live and in active use today.',
     summary:
-      'An enterprise ASP.NET Core + Angular platform built at EPAM to streamline campus recruitment and resource tracking across teams.',
+      'An enterprise ASP.NET Core + Angular platform built at EPAM to streamline campus recruitment and resource tracking across teams. Currently deployed and in active use on EPAM campus.',
     role: 'Backend and frontend engineer on the EPAM team building this internal tool.',
     stack: ['ASP.NET Core', 'C#', 'Angular', 'TypeScript', 'SQL Server', 'Entity Framework Core', 'Azure'],
-    status: 'placeholder',
+    status: 'ready',
     confidential: 'confidential',
     featured: false,
     timeframe: 'Nov 2025 – Present',
-    thumbnail: {
-      alt: 'Campus Internal Tool',
-      status: 'placeholder',
-      note: 'Not published — internal EPAM tool.',
-    },
     disclosureNote:
       'This is an internal EPAM Systems tool. Only the generic role, architecture, and technology stack are shared here — no screenshots, internal workflows, or proprietary details, now or later.',
     overview:
@@ -138,13 +101,6 @@ export const projects: Project[] = [
       'Hosted on Microsoft Azure with Azure DevOps CI/CD',
     ],
     results: 'In active use internally across multiple EPAM teams for campus recruitment tracking and resource management.',
-    gallery: [
-      {
-        alt: 'Campus Internal Tool screenshots',
-        status: 'placeholder',
-        note: 'Not published, and won’t be — this is a confidential internal EPAM tool.',
-      },
-    ],
   },
   {
     slug: 'realtime-object-detection',
@@ -158,11 +114,6 @@ export const projects: Project[] = [
     confidential: 'public',
     featured: false,
     timeframe: 'Jan 2025 – Present',
-    thumbnail: {
-      alt: 'Real-Time Detection System demo',
-      status: 'placeholder',
-      note: 'Demo GIF coming soon.',
-    },
     overview:
       'A real-time detection pipeline built on YOLOv8 and OpenCV, tuned to balance accuracy and throughput for live video streams.',
     problem:
@@ -177,12 +128,5 @@ export const projects: Project[] = [
     ],
     results:
       'Reached 92% mAP accuracy at 30 FPS throughput, with a further 10% accuracy gain from fine-tuning and preprocessing improvements over the initial baseline.',
-    gallery: [
-      {
-        alt: 'Detection pipeline — sample output',
-        status: 'placeholder',
-        note: 'Demo GIF coming soon.',
-      },
-    ],
   },
 ];

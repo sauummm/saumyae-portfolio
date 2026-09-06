@@ -3,7 +3,6 @@ import { AlertTriangle, Code, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { Button, LinkButton } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
-import { PlaceholderImage } from '@/components/ui/PlaceholderImage';
 import type { Project } from '@/types';
 
 // overview / problem / approach / results are all the same titled-prose shape.
@@ -102,22 +101,6 @@ export function CaseStudy({ project }: { project: Project }) {
 
           <ProseSection title="Results">{project.results}</ProseSection>
         </div>
-
-        {/* Gallery — each Asset routes through PlaceholderImage, so a not-yet-ready
-            (or deliberately never-published) asset renders a labeled box, never a gap. */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground">Gallery</h2>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {project.gallery.map((asset) => (
-              <PlaceholderImage
-                key={asset.alt}
-                asset={asset}
-                className="aspect-video w-full"
-                sizes="(min-width: 640px) 50vw, 100vw"
-              />
-            ))}
-          </div>
-        </section>
 
         {/* Links — honesty rule: a real external link, or a visibly disabled affordance.
             Never a dead href. Copy differs for confidential work (nothing is "coming"). */}

@@ -3,6 +3,7 @@ import { AlertTriangle, Code, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { Button, LinkButton } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { Reveal } from '@/components/motion/Reveal';
 import type { Project } from '@/types';
 
 // overview / problem / approach / results are all the same titled-prose shape.
@@ -26,41 +27,43 @@ export function CaseStudy({ project }: { project: Project }) {
       <Container>
         {/* Header */}
         <header className="max-w-3xl">
-          {(project.status === 'placeholder' || showDisclosure) && (
-            <div className="mb-4 flex flex-wrap gap-2">
-              {project.status === 'placeholder' && (
-                <Badge variant="warning">Case study in progress</Badge>
-              )}
-              {showDisclosure && (
-                <Badge variant="warning">
-                  {isConfidential ? 'Confidential' : 'Sanitized demo'}
+          <Reveal>
+            {(project.status === 'placeholder' || showDisclosure) && (
+              <div className="mb-4 flex flex-wrap gap-2">
+                {project.status === 'placeholder' && (
+                  <Badge variant="warning">Case study in progress</Badge>
+                )}
+                {showDisclosure && (
+                  <Badge variant="warning">
+                    {isConfidential ? 'Confidential' : 'Sanitized demo'}
+                  </Badge>
+                )}
+              </div>
+            )}
+            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              {project.title}
+            </h1>
+            <p className="mt-3 text-lg text-muted-foreground">{project.tagline}</p>
+
+            <dl className="mt-6 flex flex-col gap-4 text-sm sm:flex-row sm:gap-10">
+              <div>
+                <dt className="font-semibold text-foreground">Role</dt>
+                <dd className="mt-0.5 max-w-md text-muted-foreground">{project.role}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-foreground">Timeframe</dt>
+                <dd className="mt-0.5 text-muted-foreground">{project.timeframe}</dd>
+              </div>
+            </dl>
+
+            <div className="mt-6 flex flex-wrap gap-1.5">
+              {project.stack.map((tech) => (
+                <Badge key={tech} variant="outline">
+                  {tech}
                 </Badge>
-              )}
+              ))}
             </div>
-          )}
-          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            {project.title}
-          </h1>
-          <p className="mt-3 text-lg text-muted-foreground">{project.tagline}</p>
-
-          <dl className="mt-6 flex flex-col gap-4 text-sm sm:flex-row sm:gap-10">
-            <div>
-              <dt className="font-semibold text-foreground">Role</dt>
-              <dd className="mt-0.5 max-w-md text-muted-foreground">{project.role}</dd>
-            </div>
-            <div>
-              <dt className="font-semibold text-foreground">Timeframe</dt>
-              <dd className="mt-0.5 text-muted-foreground">{project.timeframe}</dd>
-            </div>
-          </dl>
-
-          <div className="mt-6 flex flex-wrap gap-1.5">
-            {project.stack.map((tech) => (
-              <Badge key={tech} variant="outline">
-                {tech}
-              </Badge>
-            ))}
-          </div>
+          </Reveal>
         </header>
 
         {/* Disclosure banner — shown whenever the posture isn't public. Mirrors the
@@ -81,7 +84,7 @@ export function CaseStudy({ project }: { project: Project }) {
         )}
 
         {/* Body */}
-        <div className="mt-10 flex max-w-3xl flex-col gap-8">
+        <Reveal delay={0.1} className="mt-10 flex max-w-3xl flex-col gap-8">
           <ProseSection title="Overview">{project.overview}</ProseSection>
           <ProseSection title="The problem">{project.problem}</ProseSection>
           <ProseSection title="Approach">{project.approach}</ProseSection>
@@ -100,7 +103,7 @@ export function CaseStudy({ project }: { project: Project }) {
           </section>
 
           <ProseSection title="Results">{project.results}</ProseSection>
-        </div>
+        </Reveal>
 
         {/* Links — honesty rule: a real external link, or a visibly disabled affordance.
             Never a dead href. Copy differs for confidential work (nothing is "coming"). */}

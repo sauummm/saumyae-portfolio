@@ -1,6 +1,7 @@
 import { MapPin } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { PlaceholderImage } from '@/components/ui/PlaceholderImage';
+import { Reveal } from '@/components/motion/Reveal';
 import { site } from '@/content/site';
 import type { Asset } from '@/types';
 
@@ -22,9 +23,9 @@ export function About() {
     // heading full-width above the whole grid, starting the photo a row too low.
     <Section id="about">
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-[minmax(0,1fr)_240px] sm:items-start">
-        <div className="flex flex-col gap-4 text-muted-foreground">
+        <Reveal x={-24} y={0} className="flex flex-col gap-4 text-muted-foreground">
           <div className="max-w-2xl">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-gradient-brand">
               About
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -49,18 +50,20 @@ export function About() {
             <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
             Based in {site.location}
           </p>
-        </div>
+        </Reveal>
 
         {/* aspect-[4/5] matches the source photo's own crop (976x1220) —
             keeping the container's ratio equal to the image's means
             object-cover does zero additional cropping on top of it. A
             mismatched ratio here (e.g. aspect-square) is what was slicing
             into the top of the head before. */}
-        <PlaceholderImage
-          asset={headshot}
-          className="aspect-[4/5] w-full sm:w-60"
-          sizes="(min-width: 640px) 240px, 100vw"
-        />
+        <Reveal x={24} y={0} delay={0.15} className="w-full sm:w-60">
+          <PlaceholderImage
+            asset={headshot}
+            className="aspect-[4/5] w-full sm:w-60"
+            sizes="(min-width: 640px) 240px, 100vw"
+          />
+        </Reveal>
       </div>
     </Section>
   );

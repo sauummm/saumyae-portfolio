@@ -23,7 +23,7 @@ export function Footer() {
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener noreferrer' : undefined}
                 aria-label={link.label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground transition-[color,transform] duration-200 hover:scale-110 hover:text-accent"
               >
                 <SocialIcon icon={link.icon} className="h-5 w-5" />
               </a>

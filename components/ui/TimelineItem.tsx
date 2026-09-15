@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'motion/react';
 import type { ExperienceEntry } from '@/types';
 import { Badge } from './Badge';
 
@@ -17,13 +20,33 @@ export function TimelineItem({ entry, isLast }: TimelineItemProps) {
     entry.startDate === entry.endDate ? entry.startDate : `${entry.startDate} – ${entry.endDate}`;
 
   return (
-    <div className="relative flex gap-6 pb-10 last:pb-0">
+    <motion.div
+      className="relative flex gap-6 pb-10 last:pb-0"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
+    >
       <div className="flex flex-col items-center">
-        <span
-          className="mt-1.5 h-3 w-3 shrink-0 rounded-full bg-accent ring-4 ring-accent/20"
+        <motion.span
+          className="mt-1.5 h-3 w-3 shrink-0 rounded-full bg-linear-to-br from-accent to-accent-2 ring-4 ring-accent/20"
           aria-hidden="true"
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.35, delay: 0.15, type: 'spring', stiffness: 300 }}
         />
-        {!isLast && <span className="mt-2 w-px flex-1 bg-border" aria-hidden="true" />}
+        {!isLast && (
+          <motion.span
+            className="mt-2 w-px flex-1 bg-linear-to-b from-accent/50 to-border"
+            aria-hidden="true"
+            style={{ transformOrigin: 'top' }}
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+          />
+        )}
       </div>
 
       <div className="flex-1 pb-2">
@@ -53,6 +76,6 @@ export function TimelineItem({ entry, isLast }: TimelineItemProps) {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

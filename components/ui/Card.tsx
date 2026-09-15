@@ -1,21 +1,24 @@
-import type { HTMLAttributes } from 'react';
+'use client';
+
+import { motion, type HTMLMotionProps } from 'motion/react';
 import { cn } from '@/lib/utils';
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardProps extends HTMLMotionProps<'div'> {
   hover?: boolean;
 }
 
-export function Card({ hover, className, children, ...props }: CardProps) {
+export function Card({ hover = true, className, children, ...props }: CardProps) {
   return (
-    <div
+    <motion.div
       className={cn(
-        'rounded-xl border border-border bg-card p-6 shadow-sm',
-        hover && 'transition-shadow hover:shadow-md',
+        'rounded-xl border border-border bg-card p-6 shadow-sm transition-[border-color,box-shadow] duration-300',
+        hover && 'hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10',
         className
       )}
+      {...(hover ? { whileHover: { y: -4 }, transition: { type: 'spring', stiffness: 300, damping: 22 } } : {})}
       {...props}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

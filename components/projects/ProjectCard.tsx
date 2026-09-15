@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import { ArrowRight, Lock } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
 import type { ConfidentialLevel, Project } from '@/types';
+
+const MotionLink = motion.create(Link);
 
 // Cap the stack row so a long list can't blow out the card; the rest collapses to "+N".
 const MAX_STACK = 4;
@@ -27,12 +32,14 @@ export function ProjectCard({ project }: { project: Project }) {
   const hasBadges = project.status === 'placeholder' || disclosure !== null;
 
   return (
-    <Link
+    <MotionLink
       href={`/projects/${project.slug}`}
       className={cn(
         'group block [perspective:1000px] rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         CARD_HEIGHT
       )}
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
       {/* The flipper: rotates on hover *and* on keyboard focus (focus-within
           fires on the group itself when the surrounding Link is focused) so
@@ -46,7 +53,7 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
       >
         {/* Front face */}
-        <div className="absolute inset-0 flex flex-col gap-4 rounded-xl border border-border bg-card p-6 shadow-sm [backface-visibility:hidden]">
+        <div className="absolute inset-0 flex flex-col gap-4 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-500 [backface-visibility:hidden] group-hover:border-accent/30 group-hover:shadow-xl group-hover:shadow-accent/15">
           {hasBadges && (
             <div className="flex flex-wrap gap-2">
               {project.status === 'placeholder' && (
@@ -87,17 +94,17 @@ export function ProjectCard({ project }: { project: Project }) {
         {/* Back face — the fuller description, revealed by the flip, plus a
             click-through cue. Pre-rotated 180° so it lands right-side-up once
             the flipper itself rotates into view. */}
-        <div className="absolute inset-0 flex flex-col gap-3 rounded-xl border border-border bg-card p-6 shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]">
+        <div className="absolute inset-0 flex flex-col gap-3 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-500 [backface-visibility:hidden] [transform:rotateY(180deg)] group-hover:border-accent/30 group-hover:shadow-xl group-hover:shadow-accent/15">
           <h3 className="text-lg font-semibold leading-snug text-foreground">
             {project.title}
           </h3>
           <p className="line-clamp-5 text-sm text-muted-foreground">{project.summary}</p>
-          <div className="mt-auto flex items-center gap-1.5 text-sm font-medium text-accent">
+          <div className="mt-auto flex items-center gap-1.5 text-sm font-medium text-gradient-brand">
             View case study
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <ArrowRight className="h-4 w-4 text-accent" aria-hidden="true" />
           </div>
         </div>
       </div>
-    </Link>
+    </MotionLink>
   );
 }

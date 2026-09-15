@@ -1,6 +1,7 @@
 import { Mail, MapPin } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { LinkButton } from '@/components/ui/Button';
+import { Reveal } from '@/components/motion/Reveal';
 import { site } from '@/content/site';
 
 // Deliberately no phone number here — see content/site.ts: it's never
@@ -18,7 +19,7 @@ export function Contact() {
       title="Let's talk"
       description="Have a project in mind, or just want to say hi? I read every message."
     >
-      <div className="flex flex-col items-start gap-4">
+      <Reveal className="flex flex-col items-start gap-4">
         <LinkButton href={`mailto:${site.email}`} external variant="primary" size="lg">
           <Mail className="h-4 w-4" aria-hidden="true" />
           {site.email}
@@ -27,7 +28,7 @@ export function Contact() {
           <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
           {site.location}
         </p>
-      </div>
+      </Reveal>
     </Section>
   );
 }

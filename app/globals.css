@@ -16,6 +16,11 @@
   --ring: #4f46e5;
   --accent: #4f46e5;
   --accent-foreground: #ffffff;
+  /* Gradient companions to --accent — used for gradient text/buttons/glows
+     so the site reads as one cohesive brand gradient rather than random color. */
+  --accent-2: #d946ef;
+  --accent-3: #06b6d4;
+  --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 .dark {
@@ -28,6 +33,9 @@
   --ring: #818cf8;
   --accent: #6366f1;
   --accent-foreground: #ffffff;
+  --accent-2: #e879f9;
+  --accent-3: #22d3ee;
+  --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 /* `inline` makes generated utilities (bg-background, text-foreground, ...)
@@ -43,6 +51,8 @@
   --color-ring: var(--ring);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -56,6 +66,21 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Gradient text — headline/name accents. Falls back to solid --accent if a
+   browser doesn't support background-clip: text (still readable, just flat). */
+.text-gradient-brand {
+  color: var(--accent);
+  background-image: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 @media (prefers-reduced-motion: reduce) {

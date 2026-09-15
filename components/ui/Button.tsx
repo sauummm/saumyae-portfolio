@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -6,9 +9,10 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-accent text-accent-foreground hover:opacity-90',
+  primary:
+    'bg-linear-to-r from-accent to-accent-2 text-accent-foreground shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30',
   secondary: 'bg-muted text-foreground hover:bg-border',
-  outline: 'border border-border text-foreground hover:bg-muted',
+  outline: 'border border-border text-foreground hover:border-accent/50 hover:bg-muted',
   ghost: 'text-foreground hover:bg-muted',
 };
 
@@ -19,13 +23,28 @@ const sizeStyles: Record<ButtonSize, string> = {
 };
 
 const base =
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none';
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-[background-color,border-color,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none';
 
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className?: string) {
   return cn(base, variantStyles[variant], sizeStyles[size], className);
 }
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+// Shared press/hover feel for every clickable button and link-button on the
+// site — a spring rather than a duration-based tween so the snap-back after
+// tap feels physical instead of mechanically timed.
+const tapHover = {
+  whileHover: { scale: 1.03 },
+  whileTap: { scale: 0.97 },
+  transition: { type: 'spring' as const, stiffness: 400, damping: 17 },
+};
+
+const MotionLink = motion.create(Link);
+
+// Motion's own on{Drag,Animation}* handlers have different signatures than the
+// native DOM ones, so the native HTML attribute types must exclude them here.
+type ConflictingHandlers = 'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onAnimationEnd';
+
+interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, ConflictingHandlers> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   children: ReactNode;
@@ -36,17 +55,23 @@ export function Button({
   variant = 'primary',
   size = 'md',
   className,
+  disabled,
   children,
   ...props
 }: ButtonProps) {
   return (
-    <button className={buttonClasses(variant, size, className)} {...props}>
+    <motion.button
+      className={buttonClasses(variant, size, className)}
+      disabled={disabled}
+      {...(disabled ? {} : tapHover)}
+      {...props}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }
 
-interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface LinkButtonProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, ConflictingHandlers> {
   href: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -68,15 +93,22 @@ export function LinkButton({
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes} {...props}>
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+        {...tapHover}
+        {...props}
+      >
         {children}
-      </a>
+      </motion.a>
     );
   }
 
   return (
-    <Link href={href} className={classes} {...props}>
+    <MotionLink href={href} className={classes} {...tapHover} {...props}>
       {children}
-    </Link>
+    </MotionLink>
   );
 }

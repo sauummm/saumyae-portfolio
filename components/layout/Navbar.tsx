@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { AnimatePresence, motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { cn } from '@/lib/utils';
@@ -53,19 +54,32 @@ export function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={cn(
-                  'text-sm font-medium text-muted-foreground transition-colors hover:text-foreground',
-                  activeId === item.href.slice(1) && 'text-foreground'
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeId === item.href.slice(1);
+            return (
+              <li key={item.href} className="relative py-1">
+                <Link
+                  href={item.href}
+                  className={cn(
+                    'text-sm font-medium text-muted-foreground transition-colors hover:text-foreground',
+                    isActive && 'text-foreground'
+                  )}
+                >
+                  {item.label}
+                </Link>
+                {/* Shared layoutId — Motion animates this pill sliding between
+                    whichever <li> currently renders it, instead of it just
+                    popping to the new spot. */}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-linear-to-r from-accent to-accent-2"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
                 )}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-2">
@@ -75,39 +89,71 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
+            className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
           >
-            {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+            <AnimatePresence mode="wait" initial={false}>
+              {open ? (
+                <motion.span
+                  key="close"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <X className="h-5 w-5" aria-hidden="true" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <Menu className="h-5 w-5" aria-hidden="true" />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </nav>
 
-      {open && (
-        <div className="border-t border-border md:hidden">
-          <ul className="flex flex-col gap-1 px-4 py-3 sm:px-6">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    'block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground',
-                    activeId === item.href.slice(1) && 'text-foreground'
-                  )}
-                >
-                  {item.label}
-                </Link>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="overflow-hidden border-t border-border md:hidden"
+          >
+            <ul className="flex flex-col gap-1 px-4 py-3 sm:px-6">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      'block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground',
+                      activeId === item.href.slice(1) && 'text-foreground'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li className="mt-1 flex items-center justify-between px-3 py-2">
+                <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                <ThemeToggle />
               </li>
-            ))}
-            <li className="mt-1 flex items-center justify-between px-3 py-2">
-              <span className="text-sm font-medium text-muted-foreground">Theme</span>
-              <ThemeToggle />
-            </li>
-          </ul>
-        </div>
-      )}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

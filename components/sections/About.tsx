@@ -3,6 +3,7 @@ import { Section } from '@/components/ui/Section';
 import { PlaceholderImage } from '@/components/ui/PlaceholderImage';
 import { Reveal } from '@/components/motion/Reveal';
 import { site } from '@/content/site';
+import { journey } from '@/content/journey';
 import type { Asset } from '@/types';
 
 // Not sourced from content/site.ts — this is the one photo on the site,
@@ -21,30 +22,29 @@ export function About() {
     // own eyebrow/title) so the photo column starts flush with it, instead
     // of only alongside the paragraphs — Section would otherwise place the
     // heading full-width above the whole grid, starting the photo a row too low.
-    <Section id="about">
+    <Section id="about" tint="soft">
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-[minmax(0,1fr)_240px] sm:items-start">
         <Reveal x={-24} y={0} className="flex flex-col gap-4 text-muted-foreground">
           <div className="max-w-2xl">
             <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-gradient-brand">
-              About
+              My Story
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              A bit about me
+              Why I build end to end
             </h2>
           </div>
           <p className="leading-relaxed">
-            I&apos;m a full-stack engineer who likes owning the whole surface of a product —
-            an ASP.NET Core API and its data model, an Angular or React frontend on top, and
-            whatever it takes to get a demo actually shipped. I&apos;m currently building
-            internal tooling at EPAM Systems, after a diploma in advanced computing at CDAC
-            and a B.Tech in Computer Science.
+            I never wanted to own just one layer of a product. In college I kept gravitating
+            toward the pieces that connected everything — the API, the data model, the UI on
+            top — so when it was time to specialize, I didn&apos;t. Today I&apos;m a full-stack
+            engineer building enterprise systems at EPAM Systems: ASP.NET Core APIs, Angular
+            frontends, SQL Server underneath, shipped on Azure.
           </p>
           <p className="leading-relaxed">
-            Outside day-to-day enterprise work, I take on problems in adjacent fields when
-            they&apos;re interesting enough to justify the context switch — a computer-vision
-            safety prototype for railway platforms, an offline document-QA pipeline built solo
-            for a hackathon. Different stack, same habit: understand the whole pipeline, not
-            just the layer I&apos;m comfortable in.
+            Outside day-to-day enterprise work, I follow the problems that stretch me — a
+            computer-vision safety system for railway platforms, an offline RAG chatbot built
+            solo for a hackathon judged by a clinical-data nonprofit. Same habit every time:
+            understand the whole pipeline before trusting any one layer of it.
           </p>
           <p className="flex items-center gap-2 text-sm text-muted-foreground">
             <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
@@ -64,6 +64,30 @@ export function About() {
             sizes="(min-width: 640px) 240px, 100vw"
           />
         </Reveal>
+      </div>
+
+      {/* The journey — a compact, real chronology (dates mirror
+          content/education.ts / content/experience.ts exactly) rendered as
+          a connected strip rather than the vertical TimelineItem used
+          further down the page, so it reads as a distinct "how I got here"
+          beat rather than a duplicate of the Track Record section. */}
+      <div className="relative mt-14">
+        <div
+          className="absolute inset-x-0 top-[7px] hidden h-px bg-linear-to-r from-accent/40 via-accent-2/40 to-accent-3/40 sm:block"
+          aria-hidden="true"
+        />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-4">
+          {journey.map((milestone, index) => (
+            <Reveal key={milestone.title} delay={index * 0.1} className="relative flex flex-col gap-1.5">
+              <span className="relative z-10 h-3.5 w-3.5 rounded-full bg-linear-to-br from-accent to-accent-2 ring-4 ring-background" />
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {milestone.date}
+              </p>
+              <p className="text-sm font-semibold text-foreground">{milestone.title}</p>
+              {milestone.org && <p className="text-xs text-muted-foreground">{milestone.org}</p>}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </Section>
   );

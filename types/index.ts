@@ -93,6 +93,21 @@ export interface Achievement {
   url?: string;
 }
 
+export interface Service {
+  title: string;
+  description: string;
+  /** lucide-react icon name, resolved by the component that renders it. */
+  icon: 'layers' | 'brain-circuit' | 'cloud' | 'camera';
+  tags: string[];
+}
+
+/** A real, dated milestone drawn from content/experience.ts / content/education.ts — no invented dates. */
+export interface JourneyMilestone {
+  date: string;
+  title: string;
+  org?: string;
+}
+
 export interface SocialLink {
   label: string;
   href: string;

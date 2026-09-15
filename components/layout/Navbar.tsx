@@ -9,11 +9,11 @@ import { cn } from '@/lib/utils';
 import { site } from '@/content/site';
 
 const NAV_ITEMS = [
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#education', label: 'Education' },
+  { href: '#about', label: 'Story' },
+  { href: '#skills', label: 'Services' },
+  { href: '#projects', label: 'Work' },
+  { href: '#experience', label: 'Track Record' },
+  { href: '#education', label: 'Credentials' },
   { href: '#contact', label: 'Contact' },
 ] as const;
 

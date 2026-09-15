@@ -4,7 +4,7 @@ import { experience } from '@/content/experience';
 
 export function Experience() {
   return (
-    <Section id="experience" eyebrow="Experience" title="Where I've worked">
+    <Section id="experience" eyebrow="Track Record" title="Where I’ve delivered" tint="soft">
       <div>
         {experience.map((entry, index) => (
           <TimelineItem

@@ -16,6 +16,14 @@ const item: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] } },
 };
 
+// Pulled verbatim from real results in content/projects.ts — no invented numbers.
+const stats = [
+  { value: '92% mAP', label: 'Real-time detection accuracy' },
+  { value: '~30% faster', label: 'Query response after optimization' },
+  { value: '100% offline', label: 'Zero-data-egress RAG pipeline' },
+  { value: 'Live in prod', label: 'Enterprise tool in active use' },
+];
+
 /**
  * Full-bleed intro, not a `Section` — it's the page's top, not an anchored
  * nav destination, so it skips Section's id/scroll-mt/eyebrow shape.
@@ -95,6 +103,18 @@ export function Hero() {
               </Button>
             )}
           </motion.div>
+
+          <motion.dl
+            variants={item}
+            className="mt-8 grid w-full max-w-2xl grid-cols-2 gap-6 border-t border-border pt-6 sm:grid-cols-4"
+          >
+            {stats.map((stat) => (
+              <div key={stat.value}>
+                <dt className="text-xl font-bold text-gradient-brand sm:text-2xl">{stat.value}</dt>
+                <dd className="mt-1 text-xs text-muted-foreground">{stat.label}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </motion.div>
       </Container>
     </section>

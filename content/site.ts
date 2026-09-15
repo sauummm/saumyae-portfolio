@@ -15,7 +15,7 @@ export const site: SiteConfig = {
   name: 'Saumyae Joshi',
   role: 'Full-Stack Software Engineer',
   tagline:
-    'Full-stack engineer building scalable systems end to end — enterprise .NET APIs, Angular/React frontends, and GenAI systems (RAG pipelines, embeddings, vector search, local LLM integration) when the problem calls for it.',
+    'I build production software end to end — enterprise .NET APIs, Angular/React frontends, and the GenAI systems (RAG pipelines, embeddings, vector search, local LLM integration) in between when the problem calls for it.',
   location: 'Hyderabad, India',
   email: 'saumyae12@icloud.com',
   phone: '+91-9599588492',

@@ -13,9 +13,10 @@ export function Projects() {
   return (
     <Section
       id="projects"
-      eyebrow="Work"
-      title="Selected projects"
+      eyebrow="Case Studies"
+      title="Selected work"
       description="A mix of enterprise, full-stack, and applied-AI work — some public, some sanitized or kept generic where the work isn't mine to show."
+      tint="none"
     >
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {orderedProjects.map((project, index) => (

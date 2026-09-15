@@ -15,9 +15,10 @@ export function Contact() {
   return (
     <Section
       id="contact"
-      eyebrow="Contact"
-      title="Let's talk"
-      description="Have a project in mind, or just want to say hi? I read every message."
+      eyebrow="Start a Project"
+      title="Have a project in mind?"
+      description="Tell me what you're building — I read every message and reply personally."
+      tint="brandStrong"
     >
       <Reveal className="flex flex-col items-start gap-4">
         <LinkButton href={`mailto:${site.email}`} external variant="primary" size="lg">

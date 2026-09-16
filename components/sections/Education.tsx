@@ -7,7 +7,7 @@ import { achievements } from '@/content/certifications';
 
 export function Education() {
   return (
-    <Section id="education" eyebrow="Credentials" title="Education & credentials" tint="none">
+    <Section id="education" eyebrow="Credentials" title="Education & credentials" tint="forest">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div className="flex flex-col gap-4">
           {education.map((entry, index) => (

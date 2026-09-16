@@ -28,6 +28,7 @@ export const projects: Project[] = [
     confidential: 'sanitized',
     featured: true,
     timeframe: '2026 · in progress (SCDM Hackathon 2026)',
+    accentColor: 'emerald',
     disclosureNote:
       'Built for the SCDM Hackathon 2026, hosted by the Society for Clinical Data Management (SCDM). Architecture, role, and tech choices are freely discussable — but sponsor-provided documents and data are confidential and will never appear in a screenshot, recording, or shared code. Any demo assets shown here use synthetic/sanitized documents only.',
     overview:
@@ -58,6 +59,7 @@ export const projects: Project[] = [
     confidential: 'public',
     featured: true,
     timeframe: 'Apr 2025 – Present',
+    accentColor: 'blue',
     overview:
       'A microservice-ready e-commerce platform built end to end — a RESTful Spring Boot backend, a responsive React storefront, and a MySQL data layer — structured so individual services can scale or be extracted independently as the system grows.',
     problem:
@@ -85,6 +87,7 @@ export const projects: Project[] = [
     confidential: 'confidential',
     featured: false,
     timeframe: 'Nov 2025 – Present',
+    accentColor: 'amber',
     disclosureNote:
       'This is an internal EPAM Systems tool. Only the generic role, architecture, and technology stack are shared here — no screenshots, internal workflows, or proprietary details, now or later.',
     overview:
@@ -114,6 +117,7 @@ export const projects: Project[] = [
     confidential: 'public',
     featured: false,
     timeframe: 'Jan 2025 – Present',
+    accentColor: 'rose',
     overview:
       'A real-time detection pipeline built on YOLOv8 and OpenCV, tuned to balance accuracy and throughput for live video streams.',
     problem:

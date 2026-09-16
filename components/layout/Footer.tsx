@@ -1,5 +1,7 @@
+import { ArrowRight } from 'lucide-react';
 import { SocialIcon } from '@/components/ui/icons';
 import { Container } from '@/components/ui/Container';
+import { LinkButton } from '@/components/ui/Button';
 import { site } from '@/content/site';
 
 export function Footer() {
@@ -7,6 +9,14 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border">
+      <Container className="flex flex-col items-start gap-4 border-b border-border py-10 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-lg font-semibold text-foreground">Got an idea worth building? Let&apos;s talk.</p>
+        <LinkButton href="#contact" size="lg">
+          Start a project
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </LinkButton>
+      </Container>
+
       <Container className="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-foreground">{site.name}</p>

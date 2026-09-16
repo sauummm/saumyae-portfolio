@@ -11,6 +11,9 @@
 /** Whether a piece of content (usually a project case study) is finished. */
 export type ContentStatus = 'ready' | 'placeholder';
 
+/** Shared hover/flip accent hue, used by both Project and Service cards. */
+export type PaletteColor = 'blue' | 'emerald' | 'amber' | 'rose';
+
 /**
  * How much of a project's real substance (screenshots, demos, code) is safe
  * to publish.
@@ -53,6 +56,8 @@ export interface Project {
   /** Surfaced first / highlighted on the home grid. */
   featured: boolean;
   timeframe: string;
+  /** Distinct hover/flip accent per card — keeps the case-studies grid from reading as one repeated color. */
+  accentColor: PaletteColor;
   links?: ProjectLinks;
   /** Visible only when confidential !== 'public'; states the restriction plainly. */
   disclosureNote?: string;
@@ -99,6 +104,8 @@ export interface Service {
   /** lucide-react icon name, resolved by the component that renders it. */
   icon: 'layers' | 'brain-circuit' | 'cloud' | 'camera';
   tags: string[];
+  /** Distinct hover/flip accent per card, same palette as Project.accentColor. */
+  accentColor: PaletteColor;
 }
 
 /** A real, dated milestone drawn from content/experience.ts / content/education.ts — no invented dates. */

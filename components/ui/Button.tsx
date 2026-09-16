@@ -9,8 +9,10 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const variantStyles: Record<ButtonVariant, string> = {
+  // A 3-stop gradient at 200% width, slid into view on hover instead of
+  // sitting static — reads as a "sheen" pass over every primary CTA site-wide.
   primary:
-    'bg-linear-to-r from-accent to-accent-2 text-accent-foreground shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30',
+    'bg-[length:200%_100%] bg-[position:0%_0%] bg-[linear-gradient(110deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent))] text-accent-foreground shadow-md shadow-accent/20 duration-500 hover:bg-[position:100%_0%] hover:shadow-xl hover:shadow-accent/40',
   secondary: 'bg-muted text-foreground hover:bg-border',
   outline: 'border border-border text-foreground hover:border-accent/50 hover:bg-muted',
   ghost: 'text-foreground hover:bg-muted',
@@ -23,7 +25,7 @@ const sizeStyles: Record<ButtonSize, string> = {
 };
 
 const base =
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-[background-color,border-color,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none';
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-[background-color,background-position,border-color,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none';
 
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className?: string) {
   return cn(base, variantStyles[variant], sizeStyles[size], className);

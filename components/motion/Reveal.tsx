@@ -12,6 +12,8 @@ interface RevealProps {
   /** Starting offset in px; negative slides in from the left instead of below. */
   y?: number;
   x?: number;
+  /** Starting scale (1 = no scale change). Pass e.g. 0.94 for a "pop-in" entrance. */
+  scale?: number;
 }
 
 /**
@@ -20,12 +22,12 @@ interface RevealProps {
  * never replays on scroll-back — a first-impression effect, not a distraction.
  * MotionConfig in app/providers.tsx makes this a no-op under prefers-reduced-motion.
  */
-export function Reveal({ children, className, delay = 0, y = 20, x = 0 }: RevealProps) {
+export function Reveal({ children, className, delay = 0, y = 20, x = 0, scale = 1 }: RevealProps) {
   return (
     <motion.div
       className={cn(className)}
-      initial={{ opacity: 0, y, x }}
-      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      initial={{ opacity: 0, y, x, scale }}
+      whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.55, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
     >

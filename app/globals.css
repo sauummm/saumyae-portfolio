@@ -21,6 +21,14 @@
   --accent-2: #d946ef;
   --accent-3: #06b6d4;
   --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
+  /* A second, distinct hue family (blue/emerald/amber/rose) — used for
+     per-section background moods and per-project-card hover colors, kept
+     separate from --accent/-2/-3 so the site isn't just one gradient at
+     different opacities everywhere. */
+  --palette-blue: #2563eb;
+  --palette-emerald: #059669;
+  --palette-amber: #d97706;
+  --palette-rose: #e11d48;
 }
 
 .dark {
@@ -36,6 +44,10 @@
   --accent-2: #e879f9;
   --accent-3: #22d3ee;
   --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
+  --palette-blue: #3b82f6;
+  --palette-emerald: #10b981;
+  --palette-amber: #f59e0b;
+  --palette-rose: #fb7185;
 }
 
 /* `inline` makes generated utilities (bg-background, text-foreground, ...)
@@ -53,6 +65,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-2: var(--accent-2);
   --color-accent-3: var(--accent-3);
+  --color-palette-blue: var(--palette-blue);
+  --color-palette-emerald: var(--palette-emerald);
+  --color-palette-amber: var(--palette-amber);
+  --color-palette-rose: var(--palette-rose);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

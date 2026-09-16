@@ -12,10 +12,10 @@ export function Card({ hover = true, className, children, ...props }: CardProps)
     <motion.div
       className={cn(
         'rounded-xl border border-border bg-card p-6 shadow-sm transition-[border-color,box-shadow] duration-300',
-        hover && 'hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10',
+        hover && 'hover:border-accent/40 hover:shadow-xl hover:shadow-accent/15',
         className
       )}
-      {...(hover ? { whileHover: { y: -4 }, transition: { type: 'spring', stiffness: 300, damping: 22 } } : {})}
+      {...(hover ? { whileHover: { y: -6, scale: 1.01 }, transition: { type: 'spring', stiffness: 300, damping: 22 } } : {})}
       {...props}
     >
       {children}

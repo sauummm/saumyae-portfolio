@@ -2,6 +2,7 @@ import { MapPin } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { PlaceholderImage } from '@/components/ui/PlaceholderImage';
 import { Reveal } from '@/components/motion/Reveal';
+import { JourneyTimeline } from '@/components/about/JourneyTimeline';
 import { site } from '@/content/site';
 import { journey } from '@/content/journey';
 import type { Asset } from '@/types';
@@ -22,11 +23,12 @@ export function About() {
     // own eyebrow/title) so the photo column starts flush with it, instead
     // of only alongside the paragraphs — Section would otherwise place the
     // heading full-width above the whole grid, starting the photo a row too low.
-    <Section id="about" tint="soft">
+    <Section id="about" tint="ocean">
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-[minmax(0,1fr)_240px] sm:items-start">
         <Reveal x={-24} y={0} className="flex flex-col gap-4 text-muted-foreground">
           <div className="max-w-2xl">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-gradient-brand">
+            <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gradient-brand">
+              <span className="h-1.5 w-1.5 rounded-full bg-linear-to-br from-accent to-accent-2" aria-hidden="true" />
               My Story
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -71,24 +73,7 @@ export function About() {
           a connected strip rather than the vertical TimelineItem used
           further down the page, so it reads as a distinct "how I got here"
           beat rather than a duplicate of the Track Record section. */}
-      <div className="relative mt-14">
-        <div
-          className="absolute inset-x-0 top-[7px] hidden h-px bg-linear-to-r from-accent/40 via-accent-2/40 to-accent-3/40 sm:block"
-          aria-hidden="true"
-        />
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-4">
-          {journey.map((milestone, index) => (
-            <Reveal key={milestone.title} delay={index * 0.1} className="relative flex flex-col gap-1.5">
-              <span className="relative z-10 h-3.5 w-3.5 rounded-full bg-linear-to-br from-accent to-accent-2 ring-4 ring-background" />
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {milestone.date}
-              </p>
-              <p className="text-sm font-semibold text-foreground">{milestone.title}</p>
-              {milestone.org && <p className="text-xs text-muted-foreground">{milestone.org}</p>}
-            </Reveal>
-          ))}
-        </div>
-      </div>
+      <JourneyTimeline journey={journey} />
     </Section>
   );
 }

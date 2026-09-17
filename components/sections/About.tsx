@@ -12,7 +12,7 @@ import type { Asset } from '@/types';
 // and case studies (see content/projects.ts) since a personal headshot in
 // an About section isn't a project screenshot.
 const headshot: Asset = {
-  src: '/images/saumyae-headshot.jpg',
+  src: '/images/saumyae-headshot.png',
   alt: `Photo of ${site.name}`,
   status: 'ready',
 };
@@ -54,15 +54,21 @@ export function About() {
           </p>
         </Reveal>
 
-        {/* aspect-[4/5] matches the source photo's own crop (976x1220) —
-            keeping the container's ratio equal to the image's means
-            object-cover does zero additional cropping on top of it. A
-            mismatched ratio here (e.g. aspect-square) is what was slicing
-            into the top of the head before. */}
-        <Reveal x={24} y={0} delay={0.15} className="w-full sm:w-60">
+        {/* aspect-[637/880] matches the source photo's own crop — keeping the
+            container's ratio equal to the image's means object-cover does
+            zero additional cropping on top of it. A mismatched ratio here
+            (e.g. aspect-square) is what was slicing into the top of the head
+            before.
+            `.headshot-fade` (globals.css) feathers all four edges of the
+            actual rectangle — deep, extensive fade zones rather than a thin
+            edge — so the photo's flat studio backdrop dissolves gradually
+            into the section's own background instead of stopping at a
+            visible line. No colored glow behind it — that read as an odd
+            tinted halo rather than a natural blend. */}
+        <Reveal x={24} y={0} delay={0.15} className="relative w-full sm:w-60">
           <PlaceholderImage
             asset={headshot}
-            className="aspect-[4/5] w-full sm:w-60"
+            className="headshot-fade aspect-[637/880] w-full sm:w-60 bg-transparent"
             sizes="(min-width: 640px) 240px, 100vw"
           />
         </Reveal>

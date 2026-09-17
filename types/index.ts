@@ -119,7 +119,7 @@ export interface SocialLink {
   label: string;
   href: string;
   /** lucide-react icon name, resolved by the component that renders it. */
-  icon: 'github' | 'linkedin' | 'mail' | 'phone' | 'map-pin' | 'file-text';
+  icon: 'github' | 'linkedin' | 'mail' | 'phone' | 'whatsapp' | 'map-pin' | 'file-text';
 }
 
 export interface SiteConfig {

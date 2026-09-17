@@ -1,16 +1,16 @@
 import type { SiteConfig } from '@/types';
 
 /**
- * NOTE on `phone`: kept here (it's on the résumé) but intentionally not
- * rendered anywhere public on the site — a personal cell number on a public
- * page is a spam/scam magnet. Email + the contact form are the public
- * channels. Surface `phone` only if a future private context needs it
- * (e.g. printed on the résumé PDF itself).
+ * NOTE on `phone`: surfaced publicly by request, for WhatsApp/call contact —
+ * the `wa.me` and `tel:` hrefs below are derived from this one string rather
+ * than duplicated as raw digits, so it only needs updating in one place.
  *
  * NOTE on `url`: the live Vercel production URL — swap this for a custom
  * domain later if one gets added; used for `metadataBase` in app/layout.tsx,
  * so OG images and canonical links stay correct as long as this matches.
  */
+const phone = '+91-9599588492';
+
 export const site: SiteConfig = {
   name: 'Saumyae Joshi',
   role: 'Full-Stack Software Engineer',
@@ -18,7 +18,7 @@ export const site: SiteConfig = {
     'I build production software end to end — enterprise .NET APIs, Angular/React frontends, and the GenAI systems (RAG pipelines, embeddings, vector search, local LLM integration) in between when the problem calls for it.',
   location: 'Hyderabad, India',
   email: 'saumyae12@icloud.com',
-  phone: '+91-9599588492',
+  phone,
   url: 'https://saumyae-portfolio.vercel.app',
   social: [
     { label: 'GitHub', href: 'https://github.com/sauummm', icon: 'github' },
@@ -28,6 +28,8 @@ export const site: SiteConfig = {
       icon: 'linkedin',
     },
     { label: 'Email', href: 'mailto:saumyae12@icloud.com', icon: 'mail' },
+    { label: 'WhatsApp', href: `https://wa.me/${phone.replace(/\D/g, '')}`, icon: 'whatsapp' },
+    { label: 'Call', href: `tel:${phone}`, icon: 'phone' },
   ],
   resume: {
     alt: 'Saumyae Joshi — Résumé (PDF)',

@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react';
-import { Mail, Phone, MapPin, FileText } from 'lucide-react';
+import { Mail, Phone, MessageCircle, MapPin, FileText } from 'lucide-react';
 import type { SocialLink } from '@/types';
 
 /**
@@ -27,6 +27,7 @@ function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
 const lucideIconMap = {
   mail: Mail,
   phone: Phone,
+  whatsapp: MessageCircle,
   'map-pin': MapPin,
   'file-text': FileText,
 } as const;

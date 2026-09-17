@@ -7,7 +7,7 @@ import type { ExperienceEntry } from '@/types';
  */
 export const experience: ExperienceEntry[] = [
   {
-    role: 'Junior Software Engineer',
+    role: 'Software Engineer',
     company: 'EPAM Systems',
     location: 'Hyderabad, India',
     startDate: 'Nov 2025',

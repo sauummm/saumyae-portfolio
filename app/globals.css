@@ -99,6 +99,19 @@ body {
   color: var(--accent-foreground);
 }
 
+/* Feathers the About-section headshot's rectangular edges so its own flat
+   studio backdrop dissolves into the glow behind it, instead of showing a
+   hard photo boundary. Two linear-gradient fades (one per axis) combined via
+   `intersect` soften all four edges of the actual rectangle — a radial
+   vignette here cut unevenly into the shoulders/hair because the photo's
+   content doesn't follow an oval. */
+.headshot-fade {
+  mask-image:
+    linear-gradient(to right, transparent, black 30%, black 70%, transparent),
+    linear-gradient(to bottom, transparent, black 14%, black 82%, transparent);
+  mask-composite: intersect;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

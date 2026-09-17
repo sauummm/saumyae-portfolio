@@ -9,5 +9,5 @@ export const journey: JourneyMilestone[] = [
   { date: 'Oct 2020', title: 'B.Tech in Computer Science begins' },
   { date: '2024', title: 'Computer Vision Internship', org: 'Sparsh Securitech' },
   { date: 'Feb 2025', title: 'PG Diploma, Advanced Computing', org: 'CDAC' },
-  { date: 'Nov 2025', title: 'Junior Software Engineer', org: 'EPAM Systems · Present' },
+  { date: 'Nov 2025', title: 'Software Engineer', org: 'EPAM Systems · Present' },
 ];

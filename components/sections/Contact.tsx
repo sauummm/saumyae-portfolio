@@ -1,15 +1,12 @@
 'use client';
 
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Section } from '@/components/ui/Section';
 import { LinkButton } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { site } from '@/content/site';
 
-// Deliberately no phone number here — see content/site.ts: it's never
-// rendered publicly (spam-magnet concern).
-//
 // No form, on purpose: a mailto link opens the visitor's own mail client
 // with a message already addressed to `site.email` — nothing to submit,
 // nothing to fail server-side. `external` (not next/link) because this
@@ -47,10 +44,25 @@ export function Contact() {
               />
               Available for new projects
             </div>
-            <LinkButton href={`mailto:${site.email}`} external variant="primary" size="lg">
-              <Mail className="h-4 w-4" aria-hidden="true" />
-              {site.email}
-            </LinkButton>
+            <div className="flex flex-wrap items-center gap-3">
+              <LinkButton href={`mailto:${site.email}`} external variant="primary" size="lg">
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                {site.email}
+              </LinkButton>
+              <LinkButton
+                href={`https://wa.me/${site.phone.replace(/\D/g, '')}`}
+                external
+                variant="outline"
+                size="lg"
+              >
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                WhatsApp
+              </LinkButton>
+              <LinkButton href={`tel:${site.phone}`} external variant="outline" size="lg">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                Call
+              </LinkButton>
+            </div>
             <p className="flex items-center gap-3 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
               {site.location}

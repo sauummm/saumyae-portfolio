@@ -52,7 +52,10 @@ export function TimelineItem({ entry, isLast }: TimelineItemProps) {
       <div className="flex-1 pb-2">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h3 className="text-base font-semibold text-foreground">
-            {entry.role} <span className="font-normal text-muted-foreground">· {entry.company}</span>
+            {entry.role}
+            {entry.company && (
+              <span className="font-normal text-muted-foreground"> · {entry.company}</span>
+            )}
           </h3>
           <p className="shrink-0 text-sm text-muted-foreground">{dateLabel}</p>
         </div>

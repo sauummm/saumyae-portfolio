@@ -5,19 +5,17 @@ import type { Project } from '@/types';
  * ContentStatus / ConfidentialLevel mechanics):
  *
  * - offline-rag-chatbot   → status: ready,       confidential: sanitized
- * - campus-internal-tool  → status: ready,       confidential: confidential  (generic only, forever)
  * - ecommerce-microservices → status: ready,     confidential: public       (links pending from user)
  * - realtime-object-detection → status: ready,   confidential: public       (links pending from user)
  *
- * "ready" here describes the case-study *text* only — none of the four
+ * "ready" here describes the case-study *text* only — none of these
  * projects carries image assets (thumbnail/gallery were removed; no photos
- * anywhere on the site, per instruction). Disclosure for campus-internal-tool
- * rests entirely on its disclosureNote below — no screenshots, ever.
+ * anywhere on the site, per instruction).
  */
 export const projects: Project[] = [
   {
     slug: 'offline-rag-chatbot',
-    title: 'Offline RAG Chatbot — SCDM Accelerator',
+    title: 'Offline RAG Chatbot — Hackathon Platform',
     tagline:
       'A fully offline, retrieval-augmented chatbot — solo-built, from vector store to generation.',
     summary:
@@ -27,14 +25,14 @@ export const projects: Project[] = [
     status: 'ready',
     confidential: 'sanitized',
     featured: true,
-    timeframe: '2026 · in progress (SCDM Hackathon 2026)',
+    timeframe: '2026 · in progress (Hackathon 2026)',
     accentColor: 'emerald',
     disclosureNote:
-      'Built for the SCDM Hackathon 2026, hosted by the Society for Clinical Data Management (SCDM). Architecture, role, and tech choices are freely discussable — but sponsor-provided documents and data are confidential and will never appear in a screenshot, recording, or shared code. Any demo assets shown here use synthetic/sanitized documents only.',
+      'Built for a clinical-data-management hackathon in 2026. Architecture, role, and tech choices are freely discussable — but sponsor-provided documents and data are confidential and will never appear in a screenshot, recording, or shared code. Any demo assets shown here use synthetic/sanitized documents only.',
     overview:
-      'The SCDM Accelerator is a team project built for the SCDM Hackathon 2026, hosted by the Society for Clinical Data Management — a nonprofit focused on clinical data management and data science. Within a small team, I was solely responsible for designing and building the accelerator’s offline chatbot: a retrieval-augmented assistant that lets users query a large corpus of clinical-data-management documents entirely offline, with no data ever leaving the local environment. I also contributed to the shared frontend and backend alongside teammates.',
+      'This hackathon platform is a team project built for a clinical-data-management hackathon in 2026. Within a small team, I was solely responsible for designing and building the platform’s offline chatbot: a retrieval-augmented assistant that lets users query a large corpus of clinical-data-management documents entirely offline, with no data ever leaving the local environment. I also contributed to the shared frontend and backend alongside teammates.',
     problem:
-      'Clinical data management teams work with sensitive, often sponsor-owned documents that can’t be sent to a third-party AI API for search or summarization — yet teams still need fast, conversational access to what’s buried in those documents. The accelerator needed a chatbot that could answer questions grounded in a large, evolving document set without any external network calls, so sponsor data would never leave the environment it was ingested in.',
+      'Clinical data management teams work with sensitive, often sponsor-owned documents that can’t be sent to a third-party AI API for search or summarization — yet teams still need fast, conversational access to what’s buried in those documents. The hackathon platform needed a chatbot that could answer questions grounded in a large, evolving document set without any external network calls, so sponsor data would never leave the environment it was ingested in.',
     approach:
       'I designed and built an offline RAG (Retrieval-Augmented Generation) pipeline end to end: documents are recursively read from a source directory, split into chunks, and embedded, with the resulting vectors stored in PostgreSQL via the pgvector extension. At query time, the user’s question is embedded with the same model, a similarity search retrieves the most relevant chunks from pgvector, and those chunks are passed as grounding context to a locally-hosted LLM for generation — no OpenAI/Anthropic/etc. API call at any point in the pipeline. That kept every sponsor document fully offline by construction, not by policy.',
     architectureSteps: [
@@ -73,37 +71,6 @@ export const projects: Project[] = [
     ],
     results:
       'Achieved roughly 30% faster query response times through schema and indexing optimization, with complete registration-to-purchase user flows on the frontend.',
-  },
-  {
-    slug: 'campus-internal-tool',
-    title: 'Campus Internal Tool (EPM-ICMP-CIT)',
-    tagline:
-      'An internal EPAM platform for campus recruitment workflows and resource tracking — live and in active use today.',
-    summary:
-      'An enterprise ASP.NET Core + Angular platform built at EPAM to streamline campus recruitment and resource tracking across teams. Currently deployed and in active use on EPAM campus.',
-    role: 'Backend and frontend engineer on the EPAM team building this internal tool.',
-    stack: ['ASP.NET Core', 'C#', 'Angular', 'TypeScript', 'SQL Server', 'Entity Framework Core', 'Azure'],
-    status: 'ready',
-    confidential: 'confidential',
-    featured: false,
-    timeframe: 'Nov 2025 – Present',
-    accentColor: 'amber',
-    disclosureNote:
-      'This is an internal EPAM Systems tool. Only the generic role, architecture, and technology stack are shared here — no screenshots, internal workflows, or proprietary details, now or later.',
-    overview:
-      'An enterprise-grade internal platform built at EPAM Systems to automate campus recruitment tracking and resource management, serving multiple internal teams.',
-    problem:
-      'EPAM’s campus recruitment process spanned multiple manual, disconnected steps across teams, with no single internal system to track candidates and resources consistently.',
-    approach:
-      'Working within EPAM’s internal team, I helped build a layered ASP.NET Core backend exposing RESTful APIs, consumed by an Angular/TypeScript frontend, with EF Core and SQL Server handling the relational data model and Azure/Azure DevOps covering hosting and CI/CD.',
-    architectureSteps: [
-      'ASP.NET Core backend, layered/Clean Architecture',
-      'RESTful API layer',
-      'Angular + TypeScript frontend',
-      'SQL Server + EF Core data layer',
-      'Hosted on Microsoft Azure with Azure DevOps CI/CD',
-    ],
-    results: 'In active use internally across multiple EPAM teams for campus recruitment tracking and resource management.',
   },
   {
     slug: 'realtime-object-detection',

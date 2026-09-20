@@ -8,13 +8,12 @@ import type { ExperienceEntry } from '@/types';
 export const experience: ExperienceEntry[] = [
   {
     role: 'Software Engineer',
-    company: 'EPAM Systems',
+    company: '',
     location: 'Hyderabad, India',
     startDate: 'Nov 2025',
     endDate: 'Present',
     stack: ['ASP.NET Core', 'C#', 'Angular', 'TypeScript', 'SQL Server', 'Entity Framework Core', 'Azure', 'Azure DevOps'],
     bullets: [
-      'Engineered the Campus Internal Tool (EPM-ICMP-CIT), an enterprise-grade internal platform that streamlines campus recruitment workflows and resource tracking across EPAM, built end-to-end on the Microsoft stack.',
       'Built and maintained scalable RESTful APIs using ASP.NET Core and C#, applying OOP, SOLID principles, and Clean Architecture patterns for maintainable enterprise code.',
       'Developed modular, reusable UI components with Angular and TypeScript, improving frontend performance, code reusability, and cross-team consistency.',
       'Designed and managed relational data models using SQL Server (SSMS) and Entity Framework Core, including schema design, EF migrations, and query optimization for improved database performance.',

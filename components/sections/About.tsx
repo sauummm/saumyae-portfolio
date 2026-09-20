@@ -39,7 +39,7 @@ export function About() {
             I never wanted to own just one layer of a product. In college I kept gravitating
             toward the pieces that connected everything — the API, the data model, the UI on
             top — so when it was time to specialize, I didn&apos;t. Today I&apos;m a full-stack
-            engineer building enterprise systems at EPAM Systems: ASP.NET Core APIs, Angular
+            engineer building enterprise systems: ASP.NET Core APIs, Angular
             frontends, SQL Server underneath, shipped on Azure.
           </p>
           <p className="leading-relaxed">

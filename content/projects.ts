@@ -4,7 +4,8 @@ import type { Project } from '@/types';
  * Disclosure posture per project (see plan / types/index.ts for the
  * ContentStatus / ConfidentialLevel mechanics):
  *
- * - offline-rag-chatbot   → status: ready,       confidential: sanitized
+ * - sai-residency-website → status: ready,      confidential: public       (live site; source repo is private)
+ * - offline-rag-chatbot   → status: ready,       confidential: sanitized    (SCDM Accelerator — live platform linked)
  * - ecommerce-microservices → status: ready,     confidential: public       (links pending from user)
  * - realtime-object-detection → status: ready,   confidential: public       (links pending from user)
  *
@@ -14,23 +15,58 @@ import type { Project } from '@/types';
  */
 export const projects: Project[] = [
   {
-    slug: 'offline-rag-chatbot',
-    title: 'Offline RAG Chatbot — Hackathon Platform',
+    slug: 'sai-residency-website',
+    title: 'Sai Residency — Real-Estate Township Website',
     tagline:
-      'A fully offline, retrieval-augmented chatbot — solo-built, from vector store to generation.',
+      'A production marketing site for a Haryana plotted-township developer — designed into code and shipped live.',
     summary:
-      'Solo-built the offline chatbot inside a team hackathon project: recursive document ingestion, pgvector similarity search, and local LLM generation, with zero third-party API calls.',
-    role: 'Solo-built the offline RAG chatbot end to end (ingestion, embeddings, vector search, local generation); contributed as part of the team on the shared frontend and backend.',
+      'Built and launched the client’s website end to end: data-driven township pages, an enquiry funnel, and automated deploys — a fast static Next.js site with no server to maintain.',
+    role: 'Solo developer — built the site from the client’s design PDFs through to production deployment.',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Static Export', 'GitHub Actions'],
+    status: 'ready',
+    confidential: 'public',
+    featured: true,
+    timeframe: 'Oct 2026 · live',
+    accentColor: 'amber',
+    links: {
+      demo: 'https://taleofkaran.com/',
+    },
+    overview:
+      'Sai Residency is a developer of gated, RERA- and DDJAY-approved plotted townships across Karnal and Ambala in Haryana. I built and shipped their public website — homepage, about page, a page for every township, legal/approval pages, and an enquiry form — turning the client’s design PDFs into a responsive, production site.',
+    problem:
+      'The client had static design mockups and a growing portfolio of townships, each with its own status, location, amenities, and approvals. They needed a site that looked exactly like the approved design, made it easy to add or update a township without touching layout code, and captured buyer enquiries — without the cost and upkeep of running a backend.',
+    approach:
+      'I chose a Next.js static export with Tailwind CSS, so the whole site ships as plain HTML/CSS/JS to shared hosting. Every township lives in its own typed TypeScript data file, and a single shared component tree renders all of them — adding a new project is a data change, not a code change. The enquiry form posts to a third-party form endpoint, so leads arrive without any server of my own. GitHub Actions builds and uploads the site to the client’s host on every push, with a separate workflow that publishes a redesign branch to a /v2 preview path for client review.',
+    architectureSteps: [
+      'Design PDFs translated into a reusable, responsive component library (Next.js + Tailwind CSS).',
+      'Per-township typed data files rendered through one shared page template.',
+      'Enquiry form (project, budget, timeline, consent) posting to a hosted form endpoint — no backend.',
+      'Static export deployed to the client’s hosting via GitHub Actions, with a /v2 preview channel for redesign reviews.',
+    ],
+    results:
+      'Live in production at taleofkaran.com, presenting every current and upcoming Sai Residency township with a working enquiry funnel and WhatsApp contact — and a content model the client can extend one data file at a time.',
+  },
+  {
+    slug: 'offline-rag-chatbot',
+    title: 'SCDM Accelerator — AI Chatbot & Backend',
+    tagline:
+      'A fully offline, retrieval-augmented chatbot and the backend behind it — from vector store to generation.',
+    summary:
+      'Built the chatbot and the backend for the SCDM Accelerator platform: recursive document ingestion, pgvector similarity search, and local LLM generation, with zero third-party API calls.',
+    role: 'Built the RAG chatbot end to end (ingestion, embeddings, vector search, local generation) and the platform backend; collaborated with the team on the frontend.',
     stack: ['Python', 'PostgreSQL', 'pgvector', 'RAG', 'Embeddings', 'Local/Offline LLM Inference'],
     status: 'ready',
     confidential: 'sanitized',
     featured: true,
-    timeframe: '2026 · in progress (Hackathon 2026)',
+    timeframe: '2026 · Hackathon 2026',
     accentColor: 'emerald',
+    links: {
+      demo: 'https://scdm-accelerator.org',
+    },
     disclosureNote:
       'Built for a clinical-data-management hackathon in 2026. Architecture, role, and tech choices are freely discussable — but sponsor-provided documents and data are confidential and will never appear in a screenshot, recording, or shared code. Any demo assets shown here use synthetic/sanitized documents only.',
     overview:
-      'This hackathon platform is a team project built for a clinical-data-management hackathon in 2026. Within a small team, I was solely responsible for designing and building the platform’s offline chatbot: a retrieval-augmented assistant that lets users query a large corpus of clinical-data-management documents entirely offline, with no data ever leaving the local environment. I also contributed to the shared frontend and backend alongside teammates.',
+      'SCDM Accelerator is a team platform built for a clinical-data-management hackathon in 2026. Within a small team, I designed and built the platform’s chatbot — a retrieval-augmented assistant that lets users query a large corpus of clinical-data-management documents entirely offline, with no data ever leaving the local environment — along with the backend that powers it. I also worked with teammates on the frontend.',
     problem:
       'Clinical data management teams work with sensitive, often sponsor-owned documents that can’t be sent to a third-party AI API for search or summarization — yet teams still need fast, conversational access to what’s buried in those documents. The hackathon platform needed a chatbot that could answer questions grounded in a large, evolving document set without any external network calls, so sponsor data would never leave the environment it was ingested in.',
     approach:

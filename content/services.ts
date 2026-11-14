@@ -16,9 +16,9 @@ export const services: Service[] = [
   {
     title: 'Applied AI & GenAI Systems',
     description:
-      'RAG pipelines, embeddings, and vector search — including fully offline/local LLM integration for teams that can’t send data to a third-party API.',
+      'RAG pipelines, embeddings, and vector search — including fully offline/local LLM integration for teams that can’t send data to a third-party API. I also build with agentic AI tools (Claude Code, GitHub Copilot agent mode, MCP) to ship full applications faster, with every change reviewed and tested.',
     icon: 'brain-circuit',
-    tags: ['RAG', 'Embeddings', 'pgvector', 'Local LLM Inference'],
+    tags: ['RAG', 'Agentic AI', 'pgvector', 'Local LLM Inference'],
     accentColor: 'emerald',
   },
   {

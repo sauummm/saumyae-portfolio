@@ -21,8 +21,8 @@ export const projects: Project[] = [
       'A production marketing site for a Haryana plotted-township developer — designed into code and shipped live.',
     summary:
       'Built and launched the client’s website end to end: data-driven township pages, an enquiry funnel, and automated deploys — a fast static Next.js site with no server to maintain.',
-    role: 'Solo developer — built the site from the client’s design PDFs through to production deployment.',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Static Export', 'GitHub Actions'],
+    role: 'Solo developer — built the site from the client’s design PDFs through to production deployment, using agentic AI coding tools throughout.',
+    stack: ['Next.js', 'TypeScript', 'Agentic AI (Claude Code)', 'Tailwind CSS', 'Static Export', 'GitHub Actions'],
     status: 'ready',
     confidential: 'public',
     featured: true,
@@ -36,12 +36,13 @@ export const projects: Project[] = [
     problem:
       'The client had static design mockups and a growing portfolio of townships, each with its own status, location, amenities, and approvals. They needed a site that looked exactly like the approved design, made it easy to add or update a township without touching layout code, and captured buyer enquiries — without the cost and upkeep of running a backend.',
     approach:
-      'I chose a Next.js static export with Tailwind CSS, so the whole site ships as plain HTML/CSS/JS to shared hosting. Every township lives in its own typed TypeScript data file, and a single shared component tree renders all of them — adding a new project is a data change, not a code change. The enquiry form posts to a third-party form endpoint, so leads arrive without any server of my own. GitHub Actions builds and uploads the site to the client’s host on every push, with a separate workflow that publishes a redesign branch to a /v2 preview path for client review.',
+      'I chose a Next.js static export with Tailwind CSS, so the whole site ships as plain HTML/CSS/JS to shared hosting. Every township lives in its own typed TypeScript data file, and a single shared component tree renders all of them — adding a new project is a data change, not a code change. The enquiry form posts to a third-party form endpoint, so leads arrive without any server of my own. GitHub Actions builds and uploads the site to the client’s host on every push, with a separate workflow that publishes a redesign branch to a /v2 preview path for client review. I built it with an agentic AI workflow (Claude Code): I set the architecture, design rules, and acceptance checks, delegated implementation, refactors, and deployment scripting to the agent, and reviewed and tested every change before it shipped.',
     architectureSteps: [
       'Design PDFs translated into a reusable, responsive component library (Next.js + Tailwind CSS).',
       'Per-township typed data files rendered through one shared page template.',
       'Enquiry form (project, budget, timeline, consent) posting to a hosted form endpoint — no backend.',
       'Static export deployed to the client’s hosting via GitHub Actions, with a /v2 preview channel for redesign reviews.',
+      'Agentic AI development loop — agent-driven implementation with human review, builds, and visual checks at every step.',
     ],
     results:
       'Live in production at taleofkaran.com, presenting every current and upcoming Sai Residency township with a working enquiry funnel and WhatsApp contact — and a content model the client can extend one data file at a time.',
@@ -53,8 +54,8 @@ export const projects: Project[] = [
       'A fully offline, retrieval-augmented chatbot and the backend behind it — from vector store to generation.',
     summary:
       'Built the chatbot and the backend for the SCDM Accelerator platform: recursive document ingestion, pgvector similarity search, and local LLM generation, with zero third-party API calls.',
-    role: 'Built the RAG chatbot end to end (ingestion, embeddings, vector search, local generation) and the platform backend; collaborated with the team on the frontend.',
-    stack: ['Python', 'PostgreSQL', 'pgvector', 'RAG', 'Embeddings', 'Local/Offline LLM Inference'],
+    role: 'Built the RAG chatbot end to end (ingestion, embeddings, vector search, local generation) and the platform backend, using agentic AI coding tools to speed up the build; collaborated with the team on the frontend.',
+    stack: ['Python', 'pgvector', 'RAG', 'Agentic AI', 'PostgreSQL', 'Embeddings', 'Local/Offline LLM Inference'],
     status: 'ready',
     confidential: 'sanitized',
     featured: true,
@@ -70,7 +71,7 @@ export const projects: Project[] = [
     problem:
       'Clinical data management teams work with sensitive, often sponsor-owned documents that can’t be sent to a third-party AI API for search or summarization — yet teams still need fast, conversational access to what’s buried in those documents. The hackathon platform needed a chatbot that could answer questions grounded in a large, evolving document set without any external network calls, so sponsor data would never leave the environment it was ingested in.',
     approach:
-      'I designed and built an offline RAG (Retrieval-Augmented Generation) pipeline end to end: documents are recursively read from a source directory, split into chunks, and embedded, with the resulting vectors stored in PostgreSQL via the pgvector extension. At query time, the user’s question is embedded with the same model, a similarity search retrieves the most relevant chunks from pgvector, and those chunks are passed as grounding context to a locally-hosted LLM for generation — no OpenAI/Anthropic/etc. API call at any point in the pipeline. That kept every sponsor document fully offline by construction, not by policy.',
+      'I designed and built an offline RAG (Retrieval-Augmented Generation) pipeline end to end: documents are recursively read from a source directory, split into chunks, and embedded, with the resulting vectors stored in PostgreSQL via the pgvector extension. At query time, the user’s question is embedded with the same model, a similarity search retrieves the most relevant chunks from pgvector, and those chunks are passed as grounding context to a locally-hosted LLM for generation — no OpenAI/Anthropic/etc. API call at any point in the pipeline. That kept every sponsor document fully offline by construction, not by policy. To move at hackathon speed, I built both the chatbot and the platform’s website and backend with agentic AI coding tools — directing the agents on architecture and requirements, then reviewing and testing what they produced.',
     architectureSteps: [
       'Recursive document ingestion — walks a source directory tree and reads every supported document.',
       'Chunking — splits ingested text into overlapping, retrieval-sized passages.',

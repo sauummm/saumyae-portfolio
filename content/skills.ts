@@ -19,6 +19,16 @@ export const skills: SkillGroup[] = [
     ],
   },
   {
+    category: 'Agentic AI',
+    items: [
+      'Claude Code',
+      'GitHub Copilot (Agent Mode)',
+      'Model Context Protocol (MCP)',
+      'AI-Assisted Full-Stack Development',
+      'Prompt & Context Engineering',
+    ],
+  },
+  {
     category: 'Cloud & Platforms',
     items: ['Microsoft Azure', 'Azure DevOps', 'SQL Server (SSMS)', 'Git', 'Postman', 'Visual Studio', 'IntelliJ IDEA'],
   },
